@@ -1,0 +1,21 @@
+Cameras:
+	
+	This table contains list of cameras treated as part of the system.
+	
+	CameraId - PRIMARY KEY
+	Name - the user-specific name for the camera. This is the label, used only in user interface
+	Ip - IPv4 address of camera. All communication would be done with this address
+	AdminPassword - password for default admin user for camera
+	Enabled - whether to connect to camera and receive logs
+	Visible - whether to display camera data in user interface
+	
+Events:
+	
+	This table contains events reported by cameras. This is done in an 'incremental' manner. New row is created when any of event changes. This allows consistent storage, easy processing and fast selecting. There are no updates of this table, only inserts + optional cleanup
+	
+	EventId - PRIMARY KEY
+	CameraId - the camera the event belongs to
+	Time - Time the event set was modified
+		
+	Event* - if at this 'Time' this event was present
+	
