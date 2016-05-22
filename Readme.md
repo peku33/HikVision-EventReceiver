@@ -1,69 +1,24 @@
-HikVision Event Receiver
-========================
+# HikVision-EventReceiver
 
-Introduction
--------
-This application is a web-friendly solution for receiving, logging and browsing 'events' sent by HikVision IP Cameras.
 
-The application is under developement and is going to be tested with:
+## Getting Started with View App
 
- - DS2CD2132-i
- - DS2CD2132f-is
- - DS2CD2532
- - DS2CD2332
+### Prerequisites
 
-**Other DS2CD2x32 cameras are most likely supported.**
+- [Git](https://git-scm.com/)
+- [Node.js and npm](nodejs.org) Node ^4.2.3, npm ^2.14.7
+- [Bower](bower.io) (`npm install --global bower`)
+- [Grunt](http://gruntjs.com/) (`npm install --global grunt-cli`)
+- [SQLite](https://www.sqlite.org/quickstart.html)
 
-Key features:
+### Developing
 
- - Single application supports multiple cameras (list defined in database)
- - Receives data from cameras and displays them in user-friendly web interface
- - Depends on camera built-in event system. Application does not analyze or even receive image stream from camera. Such approach allows operation in low-resource environments such as rasberry pi, etc
- - Talks to cameras via ISAPI (google hikvision isapi) in xml-based protocol (see AlertStream section in isapi documentation)
- - Provides mechanisms to detect connection problems, camera death etc
+1. Run `npm install` to install server dependencies.
 
-Supported events are:
+2. Run `bower install` to install front-end dependencies.
 
- - General camera failure (either connection problem or 'camera failure' event reported from camera)
- - Video loss (event reported by the camera)
- - Video tampering (event reported by the camera)
- - Motion detection (event reported by the camera)
- - Line (crossing) detection (event reported by the camera)
- - Field detection (event reported by the camera)
+3. Run `grunt serve` to start the development server. It should automatically open the client in your browser when ready.
 
-Architecture
--------
+## Build & development
 
-The application consist of 3 parts:
-
- - SQLite3 database which is the main mechanism for storage and basic communication
- - C++ backend (daemon) maintaining connection to camera and storing received events into database
- - Web frontend responsible for presenting data from database to user
-
-There only communication method between those parts is the database itself. No pipes / sockets / etc.
-
-It is of course possible to use only database + backend or even backend only.
-
-System requirements
--------
-
- - Linux-based operating system
- - Decent CPU (backend uses on avarage 2%-8% of 1GHZ arm core)
- - Decent amount of RAM (backend uses ~100MB of Vmem for 8 cameras, but this is not linear, most of this is sqlite3 cache)
- - BackEnd:
-	 - c++11 compiler
-	 - sqlite3 libraries
-	 - scons
- - FrontEnd:
-	- @TODO
-	- Bower
-	- npm
-	- grunt
-
-Installation
--------
-@TODO
-
-Usage
--------
-@TODO
+Run `grunt build` for building and `grunt serve` for preview.
