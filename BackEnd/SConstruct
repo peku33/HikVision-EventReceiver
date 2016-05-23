@@ -3,7 +3,6 @@
 import os
 import re
 import multiprocessing
-import pprint
 
 # Used to convert path to object filename.
 # some/path/to/foo would become some_path_to_foo
