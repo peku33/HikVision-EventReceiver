@@ -1,13 +1,13 @@
 HikVision Event Receiver
 ========================
 
-**APPLICATION UNDER DEVELOPEMENT, DONT TRY TO RUN IT YET**
+**APPLICATION UNDER DEVELOPMENT, DONT TRY TO RUN IT YET**
 
 Introduction
 -------
 This application is a web-friendly solution for receiving, logging and browsing 'events' sent by HikVision IP Cameras.
 
-The application is under developement and is going to be tested with:
+The application is under development and is going to be tested with:
 
  - DS2CD2132-i
  - DS2CD2132f-is
