@@ -1,6 +1,8 @@
 HikVision Event Receiver
 ========================
 
+** APPLICATION UNDER DEVELOPEMENT, DONT TRY TO RUN IT YET **
+
 Introduction
 -------
 This application is a web-friendly solution for receiving, logging and browsing 'events' sent by HikVision IP Cameras.
@@ -55,16 +57,16 @@ System requirements
 	 - sqlite3 libraries
 	 - scons
  - FrontEnd:
-	- @TODO
-	- Bower
+	- node.js
 	- npm
+	- bower
 	- grunt
 
 Building
 -------
 
 BackEnd:
- - Do cd into BackEnd directory
+ - Do `cd` into BackEnd directory
  - Run `scons` to compile all source files to objects and all objects to target executable. Use `scons DEBUG=1` to build debug version (with symbols etc).
  - Executable would be placed in Release directory
  - It is ready to use
