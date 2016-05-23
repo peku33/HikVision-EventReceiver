@@ -1,7 +1,7 @@
 #include "ErrnoException.hpp"
 
-ErrnoException::ErrnoException(int _errno): 
-	std::runtime_error(std::string() + "ErrnoException: " + ErrnoToString(_errno) + " (" + std::to_string(_errno) + ")")
+ErrnoException::ErrnoException(int _errno, const std::string & Where): 
+	std::runtime_error(std::string() + "ErrnoException: " + ErrnoToString(_errno) + " (" + std::to_string(_errno) + ") (" + Where + ")")
 {
 
 }

@@ -10,7 +10,7 @@
 class ErrnoException : public std::runtime_error
 {
 	public:
-		ErrnoException(int _errno);
+		ErrnoException(int _errno, const std::string & Where);
 
 	private:
 		static std::string ErrnoToString(int _errno);
