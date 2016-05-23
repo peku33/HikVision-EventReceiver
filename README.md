@@ -1,7 +1,7 @@
 HikVision Event Receiver
 ========================
 
-** APPLICATION UNDER DEVELOPEMENT, DONT TRY TO RUN IT YET **
+**APPLICATION UNDER DEVELOPEMENT, DONT TRY TO RUN IT YET**
 
 Introduction
 -------
