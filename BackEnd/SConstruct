@@ -1,0 +1,71 @@
+# -*- coding: utf-8 -*-
+
+import os
+import re
+import multiprocessing
+import pprint
+
+# Used to convert path to object filename.
+# some/path/to/foo would become some_path_to_foo
+def EscapePath(Path):
+	Path = re.sub(r"[^a-zA-Z0-9]+", '_', Path)
+	if Path[0] == '_':
+		Path = Path[1:]
+	return Path
+
+# All warnings, all errors, pedantic, fuck yeah!
+E = Environment()
+E.Append(CCFLAGS = '-Wall -Wextra -pedantic -funsigned-char -fdata-sections -ffunction-sections -march=native -pthread') #-Wno-unused-private-field
+E.Append(CFLAGS = '-std=c11')
+E.Append(CXXFLAGS = '-std=c++11')
+E.Append(LINKFLAGS = '-pthread -Wl,--gc-sections')
+
+# Debug / Release build parameters
+Debug = int(ARGUMENTS.get('DEBUG', 0))
+BinDirectory = None
+
+if Debug:
+	BinDirectory = 'Debug'
+	E.Append(CCFLAGS = "-ggdb -DDEBUG -D_GLIBCXX_DEBUG")
+else:
+	BinDirectory = 'Release'
+	E.Append(CCFLAGS = "-O3 -DNDEBUG")
+	E.Append(LINKFLAGS = "-O3 -s")
+
+# Those configs would be parsed
+ParseConfigs = [
+	#'pkg-config --libs sqlite3'
+]
+
+# Do the actual parsing
+for ParseConfig in ParseConfigs:
+	E.ParseConfig(ParseConfig)
+
+# Enable paralell build
+SetOption('num_jobs', multiprocessing.cpu_count() + 1)
+
+# All files with this extension would be compiled
+SourceExtensions = ['.cpp']
+
+# Find all sources recursively
+SourceFiles = []
+
+for DirPath, DirNames, FileNames in os.walk('.'):
+	for FileName in FileNames:
+		if SourceExtensions.count(os.path.splitext(FileName)[1]):
+			SourceFiles.append(os.path.join(DirPath, FileName))
+
+# Create objects from SourceFiles
+ObjectFiles = {}
+
+for SourceFile in SourceFiles:
+	ObjectFiles[SourceFile] = os.path.join(BinDirectory, EscapePath(os.path.splitext(SourceFile)[0]) + ".o")
+
+for SourceFile, ObjectFile in ObjectFiles.iteritems():
+	E.Object(ObjectFile, SourceFile)
+
+# Create target executable
+TargetExecutableName = 'HikVision-EventReceiver'
+TargetExecutablePath = os.path.join(BinDirectory, TargetExecutableName)
+
+E.Program(TargetExecutablePath, ObjectFiles.values())

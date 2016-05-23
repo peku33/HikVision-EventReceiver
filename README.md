@@ -60,9 +60,14 @@ System requirements
 	- npm
 	- grunt
 
-Installation
+Building
 -------
-@TODO
+
+BackEnd:
+ - Do cd into BackEnd directory
+ - Run `scons` to compile all source files to objects and all objects to target executable. Use `scons DEBUG=1` to build debug version (with symbols etc).
+ - Executable would be placed in Release directory
+ - It is ready to use
 
 Usage
 -------
