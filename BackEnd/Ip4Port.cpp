@@ -16,14 +16,14 @@ uint16_t Ip4Port::ExtractPortFromIpPortStr(const std::string & IpPortStr)
 	if(ColonPosition == std::string::npos)
 		throw std::invalid_argument("Colon in IpPortStr not found (ExtractPortFromIpPortStr())");
 
-	const std::string PortString = IpPortStr.substr(ColonPosition + 1);
-	if(PortString.empty())
+	const std::string PortStr = IpPortStr.substr(ColonPosition + 1);
+	if(PortStr.empty())
 		throw std::invalid_argument("Empty port (ExtractPortFromIpPortStr())");
 
 	size_t Idx = std::string::npos;
-	uint16_t Port = stoi(PortString, &Idx);
+	uint16_t Port = stoi(PortStr, &Idx);
 
-	if(Idx != PortString.length())
+	if(Idx != PortStr.length())
 		throw std::invalid_argument("Invalid port (ExtractPortFromIpPortStr())");
 
 	return Port;
