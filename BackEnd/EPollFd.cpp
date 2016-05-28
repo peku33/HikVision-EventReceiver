@@ -15,10 +15,6 @@ EPollFd::~EPollFd()
 		Disable();
 }
 
-void EPollFd::Acquire(const int NewFd)
-{
-	return Fd::Acquire(NewFd);
-}
 void EPollFd::Close()
 {
 	if(Enabled)
