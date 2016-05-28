@@ -54,12 +54,27 @@ System requirements
  - Decent amount of RAM (backend uses ~100MB of Vmem for 8 cameras, but this is not linear, most of this is sqlite3 cache)
  - BackEnd:
 	 - c++11 compiler
-	 - [SQLite3 libraries](https://www.sqlite.org/quickstart.html)
-	 - scons
+	 - [SQLite3] (https://www.sqlite.org/) (lightweight serverless database)
+	 - [Boost] (http://www.boost.org/) (additional libraries) (headers only are required)
+	 - [scons] (http://scons.org/) (make-like system)
  - FrontEnd:
-	- [Node.js and npm](http://nodejs.org) Node ^4.2.3, npm ^2.14.7
-	- [Bower](http://bower.io)  (`npm install --global bower`)
-	- [Grunt](http://gruntjs.com/) (`npm install --global grunt-cli`)
+	- [Node.js] (https://nodejs.org/en/) (runtime environment and frontend web server)
+	- npm (https://www.npmjs.com/) (package manager to download bower and grunt)
+	- Bower (http://bower.io/) (web components downloader)
+	- Grunt (http://gruntjs.com/) (build system)
+
+Installation
+-------
+(example commands for Debian / Ubuntu)
+
+Install BackEnd requirements using system package-manager:
+`$ apt-get install g++ libsqlite3-dev libboost-dev scons`
+
+Install FrontEnd system packages using system package-manager:
+`$ apt-get install nodejs npm`
+
+Install FrontEnd packages using npm:
+`$ npm install --global bower grunt-cli`
 
 Building
 -------
