@@ -46,10 +46,16 @@ SetOption('num_jobs', multiprocessing.cpu_count() + 1)
 # All files with this extension would be compiled
 SourceExtensions = ['.cpp']
 
+# Skip those directories while looking for source files
+SourceSkipDirectories = ['./Tests']
+
 # Find all sources recursively
 SourceFiles = []
 
 for DirPath, DirNames, FileNames in os.walk('.'):
+	if SourceSkipDirectories.count(DirPath):
+		continue
+
 	for FileName in FileNames:
 		if SourceExtensions.count(os.path.splitext(FileName)[1]):
 			SourceFiles.append(os.path.join(DirPath, FileName))
