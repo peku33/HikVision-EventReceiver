@@ -40,8 +40,8 @@ class EPoll
 	/**
 	 * Methods to be used by EPollFd
 	 */
+	friend EPollFd;
 	private:
-		friend class EPollFd;
 		void EPollFdRegister(EPollFd * EPF);
 		void EPollFdModify(EPollFd * EPF);
 		void EPollFdUnRegister(EPollFd * EPF);

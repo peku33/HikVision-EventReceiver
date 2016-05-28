@@ -76,7 +76,7 @@ void EPoll::Main()
 {
 	while(!ExitFlag)
 	{
-		struct epoll_event EPollEvents[EPollEventQueueLength];
+		epoll_event EPollEvents[EPollEventQueueLength];
 		const int EPollResult = epoll_wait(EP, EPollEvents, EPollEventQueueLength, -1);
 
 		if(EPollResult < 0)
