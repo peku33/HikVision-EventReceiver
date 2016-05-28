@@ -7,6 +7,8 @@
 #include "EPollFd.hpp"
 #include "ErrnoException.hpp"
 
+#include <iostream>
+
 thread_local volatile sig_atomic_t EPoll::ExitFlag = 0;
 void EPoll::SigHandler(int)
 {
