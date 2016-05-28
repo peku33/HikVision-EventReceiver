@@ -32,7 +32,7 @@ class Fd : public NoCopy
 		 * 
 		 * @param NewFd Fd returned by socket(), pipe(), etc...
 		 */
-		void Acquire(int NewFd);
+		void Acquire(const int NewFd);
 		/**
 		 * @brief Closes currently held descriptor. This is called by the destructor if object is not empty.
 		 * @details User can call this function to close Fd earilier then at objects life end

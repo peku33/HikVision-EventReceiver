@@ -19,7 +19,7 @@ bool Fd::IsAcquired() const
 {
 	return TheFd >= 0;
 }
-void Fd::Acquire(int NewFd)
+void Fd::Acquire(const int NewFd)
 {
 	if(NewFd < 0)
 		throw std::invalid_argument("NewFd < 0 (Fd::Acquire())");
