@@ -54,13 +54,12 @@ System requirements
  - Decent amount of RAM (backend uses ~100MB of Vmem for 8 cameras, but this is not linear, most of this is sqlite3 cache)
  - BackEnd:
 	 - c++11 compiler
-	 - sqlite3 libraries
+	 - [SQLite3 libraries](https://www.sqlite.org/quickstart.html)
 	 - scons
  - FrontEnd:
-	- node.js
-	- npm
-	- bower
-	- grunt
+	- [Node.js and npm](http://nodejs.org) Node ^4.2.3, npm ^2.14.7
+	- [Bower](http://bower.io)  (`npm install --global bower`)
+	- grunt(http://gruntjs.com/) (`npm install --global grunt-cli`)
 
 Building
 -------
@@ -70,6 +69,12 @@ BackEnd:
  - Run `scons` to compile all source files to objects and all objects to target executable. Use `scons DEBUG=1` to build debug version (with symbols etc).
  - Executable would be placed in Release directory
  - It is ready to use
+ 
+FrontEnd:
+ - Do `cd` into FrontEnd directory.
+ - Run `npm install` to install server dependencies.
+ - Run `bower install` to install front-end dependencies.
+ - Run `grunt server` to start the front-end server. It should automatically open the client in your browser when ready.
 
 Usage
 -------
