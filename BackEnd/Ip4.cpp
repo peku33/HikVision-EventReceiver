@@ -8,7 +8,7 @@ std::string Ip4::InAddrToIpStr(const in_addr & InAddr)
 	char Output[INET_ADDRSTRLEN];
 
 	if(inet_ntop(AF_INET, &InAddr, Output, INET_ADDRSTRLEN) != Output)
-		throw std::runtime_error("inet_ntop failed (Ip4::InAddrToIpStr())");
+		throw std::invalid_argument("inet_ntop failed (Ip4::InAddrToIpStr())");
 
 	return std::string(Output);
 }
@@ -17,7 +17,7 @@ in_addr Ip4::IpStrToInAddr(const std::string & IpStr)
 	in_addr Output;
 
 	if(inet_pton(AF_INET, IpStr.c_str(), &Output) != 1)
-		throw std::runtime_error(std::string() + "inet_pton failed for: " + IpStr + " (Ip4::IpStrToInAddr())");
+		throw std::invalid_argument(std::string() + "inet_pton failed for: " + IpStr + " (Ip4::IpStrToInAddr())");
 
 	return Output;
 }
