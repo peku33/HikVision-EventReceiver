@@ -59,7 +59,7 @@ System requirements
  - FrontEnd:
 	- [Node.js and npm](http://nodejs.org) Node ^4.2.3, npm ^2.14.7
 	- [Bower](http://bower.io)  (`npm install --global bower`)
-	- grunt(http://gruntjs.com/) (`npm install --global grunt-cli`)
+	- [Grunt](http://gruntjs.com/) (`npm install --global grunt-cli`)
 
 Building
 -------
