@@ -20,7 +20,7 @@ E.Append(CXXFLAGS = '-std=c++11')
 E.Append(LINKFLAGS = '-pthread -Wl,--gc-sections')
 
 # Debug / Release build parameters
-Debug = int(ARGUMENTS.get('DEBUG', 0))
+Debug = int(ARGUMENTS.get('DEBUG', 1))
 BinDirectory = None
 
 if Debug:
