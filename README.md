@@ -15,6 +15,7 @@ The application is under development and is going to be tested with:
  - DS2CD2332
 
 **Other DS2CD2x32 cameras are most likely supported.**
+**Other DS2CDxxxx cameras are probably supported.**
 
 Key features:
 
