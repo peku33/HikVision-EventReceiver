@@ -31,12 +31,12 @@ class TimerSingle
 		TimerSingle(EPoll & EP, const std::chrono::milliseconds & Duration, const OnTimer_f & OnTimer);
 
 	private:
-		EPollFd EPF;
-		void OnEPoll(const uint32_t Events);
-
-	private:
 		const itimerspec TimerSpec;
 		const OnTimer_f OnTimer;
+
+	private:
+		EPollFd EPF;
+		void OnEPoll(const uint32_t Events);
 
 	public:
 		/**

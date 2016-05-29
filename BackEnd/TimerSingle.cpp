@@ -8,7 +8,7 @@
 #include "ErrnoException.hpp"
 
 TimerSingle::TimerSingle(EPoll & EP, const std::chrono::milliseconds & Duration, const OnTimer_f & OnTimer):
-	EPF(EP, EPOLLIN, std::bind(&TimerSingle::OnEPoll, this, std::placeholders::_1)), TimerSpec(DurationToItimerspec(Duration)), OnTimer(OnTimer)
+	TimerSpec(DurationToItimerspec(Duration)), OnTimer(OnTimer), EPF(EP, EPOLLIN, std::bind(&TimerSingle::OnEPoll, this, std::placeholders::_1))
 {
 	const int TimerFd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
 	if(TimerFd == -1)
