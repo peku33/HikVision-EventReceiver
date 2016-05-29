@@ -39,37 +39,37 @@ EPoll::EPoll()
 	pthread_sigmask(SIG_SETMASK, &MaskedSignals, NULL);
 }
 
-void EPoll::EPollFdRegister(EPollFd * EPF)
+void EPoll::EPollFdRegister(EPollFd * EPFPtr)
 {
 	epoll_data_t EPollData;
-	EPollData.ptr = EPF;
+	EPollData.ptr = EPFPtr;
 	
 	epoll_event EPollEvent;
-	EPollEvent.events = EPF->Events;
+	EPollEvent.events = (*EPFPtr).Events;
 	EPollEvent.data = EPollData;
 	
-	if(epoll_ctl(EP, EPOLL_CTL_ADD, EPF->TheFd, &EPollEvent) != 0)
+	if(epoll_ctl(EP, EPOLL_CTL_ADD, (*EPFPtr), &EPollEvent) != 0)
 		throw ErrnoException(errno, "EPoll::EPollFdRegister()");
 }
-void EPoll::EPollFdModify(EPollFd * EPF)
+void EPoll::EPollFdModify(EPollFd * EPFPtr)
 {
 	epoll_data_t EPollData;
-	EPollData.ptr = EPF;
+	EPollData.ptr = EPFPtr;
 	
 	epoll_event EPollEvent;
-	EPollEvent.events = EPF->Events;
+	EPollEvent.events = (*EPFPtr).Events;
 	EPollEvent.data = EPollData;
 	
-	if(epoll_ctl(EP, EPOLL_CTL_MOD, EPF->TheFd, &EPollEvent) != 0)
+	if(epoll_ctl(EP, EPOLL_CTL_MOD, (*EPFPtr), &EPollEvent) != 0)
 		throw ErrnoException(errno, "EPoll::EPollFdModify()");
 }
-void EPoll::EPollFdUnRegister(EPollFd * EPF)
+void EPoll::EPollFdUnRegister(EPollFd * EPFPtr)
 {
-	if(epoll_ctl(EP, EPOLL_CTL_DEL, EPF->TheFd, NULL) != 0)
+	if(epoll_ctl(EP, EPOLL_CTL_DEL, (*EPFPtr), NULL) != 0)
 		throw ErrnoException(errno, "EPoll::EPollFdUnRegister()");
 	
-	if(!RemovedEPFs.insert(EPF).second)
-		throw std::logic_error("!RemovedUEPFs.insert(EPF).second (EPoll::EPollFdUnRegister())");
+	if(!RemovedEPFs.insert(EPFPtr).second)
+		throw std::logic_error("!RemovedUEPFs.insert(EPFPtr).second (EPoll::EPollFdUnRegister())");
 }
 
 void EPoll::Main()
@@ -110,7 +110,7 @@ void EPoll::Main()
 
 					//For debug version we want the application to be immediately killed by unhandled exception.
 					//This is the easiest way to find out there is something wrong (and what)
-					EPFPtr->OnEPoll(Events);
+					(*EPFPtr).OnEPoll(Events);
 
 				#else
 
@@ -119,7 +119,7 @@ void EPoll::Main()
 
 					try
 					{
-						EPFPtr->OnEPoll(Events);
+						(*EPFPtr).OnEPoll(Events);
 					}
 					catch(const std::exception & e)
 					{

@@ -18,7 +18,7 @@ class Fd : public NoCopy
 		 */
 		~Fd();
 
-	protected:
+	private:
 		int TheFd;
 
 	public:
