@@ -3,7 +3,6 @@
 
 #include <ctime>
 #include <iostream>
-#include <assert.h>
 
 /*
 	Standalone event-dump application. After starting - prints events to console when any of event changes.
