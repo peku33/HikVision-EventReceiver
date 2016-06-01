@@ -34,7 +34,7 @@ else:
 
 # Those configs would be parsed
 ParseConfigs = [
-	#'pkg-config --libs sqlite3'
+	'pkg-config --libs sqlite3'
 ]
 
 # Do the actual parsing
