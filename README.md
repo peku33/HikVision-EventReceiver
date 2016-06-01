@@ -104,8 +104,8 @@ Usage
 
 Main application: TODO
 
-DS2CD2x32EventReceiver_Standalone_Console - Application intended for standalone usage. Does not required SQLite3, front-end components. Simply connects to camera specified by command-cline arguments and prints all received events to console.
+`DS2CD2x32EventReceiver_Standalone_Console` - Application intended for standalone usage. Does not required SQLite3, front-end components. Simply connects to camera specified by command-cline arguments and prints all received events to console.
  - To run application execute `./Release/DS2CD2x32EventReceiver_Standalone_Console CameraIp AdminPassword`
  - Application runs and prints everything to console
  - To kill it - CTRL+C
- - See `screen` command to put application in background
+ - See [screen](https://www.mattcutts.com/blog/a-quick-tutorial-on-screen/) command to put application in background
