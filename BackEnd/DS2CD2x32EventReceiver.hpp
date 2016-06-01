@@ -12,12 +12,23 @@
 
 class EPoll;
 
+/**
+ * @brief The CORE class - Camera event receiver.
+ * @details This is extremly easy to use - just pass callback function to constructor. Everything else is done automatically inside.
+ */
 class DS2CD2x32EventReceiver
 {
+	/**
+	 * @brief Event structure. Each bool describes one event reported by camera.
+	 * @details When any of event changes DS2CD2x32EventReceiver's callback pushes reference to updated object. (For no this is always the same object, with updated fields, but you should'n relay on that fact)
+	 */
 	public:
 		struct Events
 		{
 			public:
+				/**
+				 * @brief Constructs Events object with all events == false
+				 */
 				Events();
 
 			public:
@@ -25,7 +36,10 @@ class DS2CD2x32EventReceiver
 				bool operator != (const Events & Other) const;
 
 			public:
+				//CameraFailure is not reported by camera. This is internal event reporting that something went wrong - connection failure / camera error / timeout / etc.
 				bool CameraFailure;
+
+				//Below are events reported by camera. See camera documentation (google for HikVision ISAPI IPMD) for detailed description. Notice: TamperingDetection is sometimes called 'shelteralam'.
 				bool VideoLoss;
 				bool TamperingDetection;
 				bool MotionDetection;
@@ -45,9 +59,21 @@ class DS2CD2x32EventReceiver
 		static const std::chrono::milliseconds EventTimeoutDuration;								//Camera does not inform us if the event is finished. Instead we have to implement timeout
 
 	public:
+		/**
+		 * @brief Callback functional type. See constructor
+		 */
 		typedef std::function<void (const Events &)> OnEventsChange_f;
 
 	public:
+		/**
+		 * @brief Constructor. Begins operation of event receiver.
+		 * @details This is the only place you interact with this class. Events are reported by OnEventsChange() callback
+		 * 
+		 * @param EP EPoll event loop to register all Fd's in (timers, sockets, etc)
+		 * @param CameraIp Ip4Port object representing camera ip to connect to. See Ip4Port constructor.
+		 * @param AdminPassword Password for admin user to camera. This is default and non-deletable user account, the only one with access to AlertStream. In this application we do nothing more then receiving AlertStream
+		 * @param OnEventsChange Callback function called when any of events is changed. Callback contains reference to current Events object.
+		 */
 		DS2CD2x32EventReceiver(EPoll & EP, const Ip4 & CameraIp, const std::string & AdminPassword, const OnEventsChange_f & OnEventsChange);
 
 	private:
@@ -57,7 +83,7 @@ class DS2CD2x32EventReceiver
 		const OnEventsChange_f OnEventsChange;
 
 	private:
-		const Ip4Port CameraHTTPIpPort;
+		const Ip4Port CameraHTTPIpPort; //Just CameraIp + port 80
 
 	private:
 		TimerSingle AlertStreamSocketRecreateTimer;
