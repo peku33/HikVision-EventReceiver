@@ -3,9 +3,11 @@ HikVision Event Receiver
 
 **APPLICATION UNDER DEVELOPMENT, DONT TRY TO RUN IT YET**
 
+**DS2CD2x32EventReceiver_Standalone_Console is ready to use, you may try it**
+
 Introduction
 -------
-This application is a web-friendly solution for receiving, logging and browsing 'events' sent by HikVision IP Cameras.
+This application is a web-friendly solution for receiving, logging and browsing 'events' sent by HikVision IP Cameras. It also provides console interface to see events reported by the camera. Its easy to extend with new features.
 
 The application is under development and is going to be tested with:
 
@@ -27,7 +29,7 @@ Key features:
 
 Supported events are:
 
- - General camera failure (either connection problem or 'camera failure' event reported from camera)
+ - General camera failure (connection problem / camera error / etc)
  - Video loss (event reported by the camera)
  - Video tampering (event reported by the camera)
  - Motion detection (event reported by the camera)
@@ -88,7 +90,7 @@ Building
 BackEnd:
  - Do `cd` into BackEnd directory
  - Run `scons` to compile all source files to objects and all objects to target executable. Use `scons DEBUG=1` to build debug version (with symbols etc).
- - Executable would be placed in Release directory
+ - Executables would be placed in Release directory
  - It is ready to use
  
 FrontEnd:
@@ -99,4 +101,11 @@ FrontEnd:
 
 Usage
 -------
-@TODO
+
+Main application: TODO
+
+DS2CD2x32EventReceiver_Standalone_Console - Application intended for standalone usage. Does not required SQLite3, front-end components. Simply connects to camera specified by command-cline arguments and prints all received events to console.
+ - To run application execute `./Release/DS2CD2x32EventReceiver_Standalone_Console CameraIp AdminPassword`
+ - Application runs and prints everything to console
+ - To kill it - CTRL+C
+ - See `screen` command to put application in background
