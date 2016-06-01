@@ -5,6 +5,13 @@ HikVision Event Receiver
 
 **DS2CD2x32EventReceiver_Standalone_Console is ready to use, you may try it**
 
+**HikVision-EventReceiver (the final BackEnd) is also ready**
+
+Progres:
+ - DataBase: Ready (100%)
+ - BackEnd: Ready (100%)
+ - FrontEnd: Waiting (0%)
+
 Introduction
 -------
 This application is a web-friendly solution for receiving, logging and browsing 'events' sent by HikVision IP Cameras. It also provides console interface to see events reported by the camera. Its easy to extend with new features.
@@ -102,10 +109,17 @@ FrontEnd:
 Usage
 -------
 
-Main application: TODO
+Actual event listener (the BackEnd) loads list of cameras on startup. The first thing you should start is the FrontEnd, to configure list of cameras. When everything is configured, run the BackEnd (below also called Main Application).
 
-`DS2CD2x32EventReceiver_Standalone_Console` - Application intended for standalone usage. Does not required SQLite3, front-end components. Simply connects to camera specified by command-cline arguments and prints all received events to console.
+FrontEnd: @TODO
+
+BackEnd application (`HikVision-EventReceiver.Main`). Application starts with no arguments. On startup it loads list of cameras and begins to receive events. Only initial messages and errors are printed to console, so don't worry that application does not show any activity.
+ - Tu run application execute `./Release/HikVision-EventReceiver.Main`. You might be interested in putting application on screen (for background work). See [screen](https://www.mattcutts.com/blog/a-quick-tutorial-on-screen/)
+ - Hello message + list of loaded cameras would be printed to console
+ - Application is up and running, can be backgrounded
+ - To stop application, press `CTRL+C`
+
+`DS2CD2x32EventReceiver_Standalone_Console` - Application intended for standalone usage. Not a BackEnd actually, but also contained in BackEnd directory. Does not required SQLite3, front-end components. Simply connects to camera specified by command-cline arguments and prints all received events to console.
  - To run application execute `./Release/DS2CD2x32EventReceiver_Standalone_Console CameraIp AdminPassword`
  - Application runs and prints everything to console
- - To kill it - CTRL+C
- - See [screen](https://www.mattcutts.com/blog/a-quick-tutorial-on-screen/) command to put application in background
+ - To kill it - `CTRL+C`
