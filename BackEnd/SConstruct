@@ -14,10 +14,10 @@ def EscapePath(Path):
 
 # All warnings, all errors, pedantic, fuck yeah!
 E = Environment()
-E.Append(CCFLAGS = '-Wall -Wextra -pedantic -funsigned-char -fdata-sections -ffunction-sections -march=native -pthread') #-Wno-unused-private-field
+E.Append(CCFLAGS = '-Wall -Wextra -pedantic -funsigned-char -march=native -pthread') #-Wno-unused-private-field
 E.Append(CFLAGS = '-std=c11')
 E.Append(CXXFLAGS = '-std=c++11')
-E.Append(LINKFLAGS = '-pthread -Wl,--gc-sections')
+E.Append(LINKFLAGS = '-pthread')
 
 # Debug / Release build parameters
 Debug = int(ARGUMENTS.get('DEBUG', 1))
@@ -26,10 +26,11 @@ BinDirectory = None
 if Debug:
 	BinDirectory = 'Debug'
 	E.Append(CCFLAGS = "-ggdb -DDEBUG -D_GLIBCXX_DEBUG")
+	E.Append(LINKFLAGS = "-rdynamic")
 else:
 	BinDirectory = 'Release'
-	E.Append(CCFLAGS = "-O3 -DNDEBUG")
-	E.Append(LINKFLAGS = "-O3 -s")
+	E.Append(CCFLAGS = "-O3 -DNDEBUG -fdata-sections -ffunction-sections")
+	E.Append(LINKFLAGS = "-O3 -s -Wl,--gc-sections")
 
 # Those configs would be parsed
 ParseConfigs = [
