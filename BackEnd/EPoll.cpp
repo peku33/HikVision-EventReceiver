@@ -67,9 +67,6 @@ void EPoll::EPollFdUnRegister(EPollFd * EPFPtr)
 {
 	if(epoll_ctl(EP, EPOLL_CTL_DEL, (*EPFPtr), NULL) != 0)
 		throw ErrnoException(errno, "EPoll::EPollFdUnRegister()");
-	
-	if(!RemovedEPFs.insert(EPFPtr).second)
-		throw std::logic_error("!RemovedUEPFs.insert(EPFPtr).second (EPoll::EPollFdUnRegister())");
 }
 
 void EPoll::Main()
@@ -89,15 +86,13 @@ void EPoll::Main()
 		}
 		else if(EPollResult > 0)
 		{
-			RemovedEPFs.clear();
-
 			for(int I = 0; I < EPollResult; I++)
 			{
 				EPollFd * EPFPtr = reinterpret_cast<EPollFd *>(EPollEvents[I].data.ptr);
 				const uint32_t Events = EPollEvents[I].events;
 
 				//If this FD has already been removed, skip
-				if(RemovedEPFs.count(EPFPtr))
+				if(!(*EPFPtr).IsAcquired())
 					continue;
 
 				if(Events == 0)

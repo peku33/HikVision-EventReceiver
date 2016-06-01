@@ -1,8 +1,6 @@
 #pragma once
 
 #include <signal.h>
-#include <unordered_set>
-
 #include "NoCopy.hpp"
 #include "Fd.hpp"
 
@@ -45,13 +43,6 @@ class EPoll
 		void EPollFdRegister(EPollFd * EPF);
 		void EPollFdModify(EPollFd * EPF);
 		void EPollFdUnRegister(EPollFd * EPF);
-
-		/**
-		 * It is possible that one event handler (callback method) deletes EPollFd that is currently listed as ready fd returned by epoll_wait.
-		 * In such case we have to skip them, since their object are probably already destroyed and fds closed.
-		 */
-		std::unordered_set<EPollFd *> RemovedEPFs;
-
 	/**
 	 * epoll objects
 	 */
