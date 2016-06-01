@@ -1,7 +1,5 @@
 #include "DataBase.hpp"
 
-#include <iostream>
-
 DataBase::SQLite3Exception::SQLite3Exception(const int Code): std::runtime_error(sqlite3_errstr(Code)) {}
 DataBase::SQLite3Exception::SQLite3Exception(const std::string & Text): std::runtime_error(Text) {}
 
