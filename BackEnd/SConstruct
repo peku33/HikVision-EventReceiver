@@ -50,8 +50,12 @@ SourceExtensions = ['.cpp']
 # Skip those directories while looking for source files
 SourceSkipDirectories = ['./Tests']
 
+# Treat files containing this string as Main files (containing main())
+MainFilesExtension = '.Main.cpp'
+
 # Find all sources recursively
-SourceFiles = []
+MainSourceFiles = []
+ClassSourceFiles = []
 
 for DirPath, DirNames, FileNames in os.walk('.'):
 	if SourceSkipDirectories.count(DirPath):
@@ -59,19 +63,32 @@ for DirPath, DirNames, FileNames in os.walk('.'):
 
 	for FileName in FileNames:
 		if SourceExtensions.count(os.path.splitext(FileName)[1]):
-			SourceFiles.append(os.path.join(DirPath, FileName))
+			FilePath = os.path.join(DirPath, FileName)
+
+			if FileName.endswith(MainFilesExtension):
+				MainSourceFiles.append(FilePath)
+			else:
+				ClassSourceFiles.append(FilePath)
 
 # Create objects from SourceFiles
-ObjectFiles = {}
+MainObjectFiles = {}
+ClassObjectFiles = {}
 
-for SourceFile in SourceFiles:
-	ObjectFiles[SourceFile] = os.path.join(BinDirectory, EscapePath(os.path.splitext(SourceFile)[0]) + ".o")
+for ClassSourceFile in ClassSourceFiles:
+	ClassObjectFiles[ClassSourceFile] = os.path.join(BinDirectory, EscapePath(os.path.splitext(ClassSourceFile)[0]) + ".o")
 
-for SourceFile, ObjectFile in ObjectFiles.iteritems():
-	E.Object(ObjectFile, SourceFile)
+for MainSourceFile in MainSourceFiles:
+	MainObjectFiles[MainSourceFile] = os.path.join(BinDirectory, EscapePath(os.path.splitext(MainSourceFile)[0]) + ".o")
+
+for ClassSourceFile, ClassObjectFile in ClassObjectFiles.iteritems():
+	E.Object(ClassObjectFile, ClassSourceFile)
+
+for MainSourceFile, MainObjectFile in MainObjectFiles.iteritems():
+	E.Object(MainObjectFile, MainSourceFile)
 
 # Create target executable
-TargetExecutableName = 'HikVision-EventReceiver'
-TargetExecutablePath = os.path.join(BinDirectory, TargetExecutableName)
+for MainSourceFile, MainObjectFile in MainObjectFiles.iteritems():
+	TargetExecutableName = MainSourceFile[:-len(MainFilesExtension)]
+	TargetExecutablePath = os.path.join(BinDirectory, TargetExecutableName)
 
-E.Program(TargetExecutablePath, ObjectFiles.values())
+	E.Program(TargetExecutablePath, [MainObjectFile] + ClassObjectFiles.values())
