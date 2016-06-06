@@ -4,6 +4,8 @@
 #include "NoCopy.hpp"
 #include "Fd.hpp"
 
+#include <unordered_set>
+
 class EPollFd;
 
 /**
@@ -43,6 +45,12 @@ class EPoll
 		void EPollFdRegister(EPollFd * EPF);
 		void EPollFdModify(EPollFd * EPF);
 		void EPollFdUnRegister(EPollFd * EPF);
+
+		/**
+		 * In case Fd was closed during EPoll loop, we keep the list of their pointers.
+		 * Those Fds would be skipped.
+		 */
+		std::unordered_set<EPollFd *> RemovedEPFs;
 	/**
 	 * epoll objects
 	 */
