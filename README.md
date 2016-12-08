@@ -1,7 +1,7 @@
 HikVision Event Receiver
 ========================
 
-**APPLICATION UNDER DEVELOPMENT, DON'T TRY TO RUN IT YET**
+**Because of lack of time, I have no possibility to complete the FrontEnd. The core is 100% functional, you can use app to populate the databse with events**
 
 **DS2CD2x32EventReceiver_Standalone_Console is ready to use, you may try it**
 
